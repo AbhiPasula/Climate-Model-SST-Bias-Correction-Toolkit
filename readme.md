@@ -142,7 +142,7 @@ python plot_training_history.py --method unet
 
 This manuscript for this work is under review in the IOP Science Machine Learning Earth journal.
 
-<!-- ```
+```
 @article{pasula2025global,
   title={Global Climate Model Error Correction using Data Driven Deep Learning},
   author={Abhishek, Pasula. and Deepak, Subramani.},
@@ -151,7 +151,7 @@ This manuscript for this work is under review in the IOP Science Machine Learnin
   volume={1},
   pages={1--20}
 }
-``` -->
+```
 ## Acknowledgements
 
 We acknowledge the World Climate Research Programme's Working Group on Coupled Modelling, which is responsible for CMIP, and we thank the climate modeling groups for producing and making available their model output. We also thank the EU Copernicus Marine Service for providing the ORAS5 observational dataset.
