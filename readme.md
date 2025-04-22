@@ -138,19 +138,11 @@ The toolkit includes visualization tools for model evaluation:
 python plot_training_history.py --method unet
 ``
 
+```
 ## Citation
 
-If you use this toolkit in your research, please cite:
+This manuscript for this work is under review in the IOP Science Machine Learning Earth journal.
 
-```
-@article{pasula2025global,
-  title={Global Climate Model Error Correction using Data Driven Deep Learning},
-  author={Abhishek, Pasula. and Deepak, Subramani.},
-  journal={IOP Science Machine Learning Earth},
-  year={2025},
-  volume={1},
-  pages={1--20}
-}
 ```
 ## Acknowledgements
 

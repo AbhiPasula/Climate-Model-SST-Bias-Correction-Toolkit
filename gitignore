@@ -1,6 +1,6 @@
 # Data directories
 
-/data/*
+data/*
 
 # Output files and directories
 /output/
