@@ -1,8 +1,7 @@
-# Data directories
 
-data/*
+/data/
+*.mat
 
-# Output files and directories
 /output/
 /results/
 *.npy
