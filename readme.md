@@ -138,12 +138,23 @@ The toolkit includes visualization tools for model evaluation:
 python plot_training_history.py --method unet
 ``
 
+<<<<<<< HEAD
 ```
 ## Citation
 
 This manuscript for this work is under review in the IOP Science Machine Learning Earth journal.
 
 ```
+=======
+
+
+```
+## Citation
+
+This manuscript for this work is under review in the IOP Science Machine Learning Earth journal.
+
+```
+>>>>>>> d6e9ae87a942c0a21669d46c66c0ba5ca99d1c3a
 ## Acknowledgements
 
 We acknowledge the World Climate Research Programme's Working Group on Coupled Modelling, which is responsible for CMIP, and we thank the climate modeling groups for producing and making available their model output. We also thank the EU Copernicus Marine Service for providing the ORAS5 observational dataset.
