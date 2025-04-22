@@ -189,7 +189,7 @@ python plot_training_history.py --method unet
 ```
 ## Citation
 
-This manuscript for this work is under review in the IOP Science Machine Learning Earth journal.
+The manuscript for this work is under review in the IOP Science Machine Learning Earth journal.
 
 ```
 ## Acknowledgements

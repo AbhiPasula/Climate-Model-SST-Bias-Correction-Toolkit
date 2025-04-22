@@ -92,19 +92,6 @@ The raw data has been preprocessed to:
   - Transposed files: Time-space transposed for bidirectional learning
   - `datanomissing.npy`: Indices of valid ocean points
 
-## Downloading Preprocessed Data
-
-Preprocessed data can be downloaded from our project data repository:
-[Climate Bias Correction Data Repository](https://example.com/climate-bias-data)
-
-```bash
-# Example download commands
-mkdir -p data/sst data/thetao
-wget -P data/sst https://example.com/climate-bias-data/sst/cmip6_sst_1958_2014_fill_diststen.mat
-wget -P data/thetao https://example.com/climate-bias-data/thetao/cmip6_thetao_1958_2014_2d.npy
-# Additional files...
-wget -P data/ https://example.com/climate-bias-data/oras5_mask.mat
-```
 
 ## Creating Your Own Dataset
 
