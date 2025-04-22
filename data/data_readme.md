@@ -19,8 +19,6 @@ data/
 │   ├── oras5_sst_1958_2014_fill_diststen.mat
 │   ├── oras5_sst_2015_2022_fill_diststen.mat
 │   └── oras5_historical_sst_1958_2020_mean.mat
-│
-├── thetao/                       # Ocean temperature data for BiLSTM and ConvLSTM
 │   ├── cmip6_thetao_1958_2014_2d.npy
 │   ├── cmip6_thetao_transpose_ts_1958_2014_2d.npy
 │   ├── cmip6_thetao_ssp126_2015_2022_2d.npy
@@ -63,22 +61,23 @@ data/
 CMIP6 (Coupled Model Intercomparison Project Phase 6) data can be downloaded from the Earth System Grid Federation (ESGF):
 - [ESGF Portal](https://esgf-node.llnl.gov/projects/cmip6/)
 
+CMIP6 projections are downloaded from CNRM-CM6 historical and four SSP projections for the Bay of Bengal region.
+
 The specific CMIP6 model used in this project is CNRM-CM6-1 from Centre National de Recherches Météorologiques (CNRM).
 
 ### ORAS5 Data
 ORAS5 (Ocean ReAnalysis System 5) data is available from the Copernicus Marine Service:
 - [Copernicus Marine Service](https://marine.copernicus.eu/)
 
-Search for the "Global Ocean Ensemble Physics Reanalysis" product.
+ORAS5 reanalysis data is downloaded for the Bay of Bengal region.
 
 ## Data Preprocessing
 
 The raw data has been preprocessed to:
 1. Remap to a common grid (85 x 85)
 2. Fill missing values in coastal regions
-3. Calculate and store climatological means
-4. Convert to consistent units (°C for temperature)
-5. Create the transposed forms needed for BiLSTM model
+3. Calculate and store monthly climatological means from ORAS5
+4. Create the transposed forms needed for BiLSTM model
 
 ### File Format Details
 
@@ -111,17 +110,4 @@ wget -P data/ https://example.com/climate-bias-data/oras5_mask.mat
 
 If you want to use different climate models or variables, you'll need to preprocess the data into the same format. See the `preprocessing/` directory for scripts to help with this task.
 
-## Citation
 
-When using this data, please cite both the original data sources and our bias correction paper:
-
-```
-@article{author2023climate,
-  title={Climate Model Bias Correction Using Deep Learning},
-  author={Author, A. and Coauthor, B.},
-  journal={Journal of Climate Informatics},
-  year={2023},
-  volume={1},
-  pages={1--15}
-}
-```

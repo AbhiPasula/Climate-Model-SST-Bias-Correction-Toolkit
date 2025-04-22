@@ -94,6 +94,52 @@ This will guide you through:
 3. Setting hyperparameters
 4. Running ablation studies
 
+# Project Structure
+
+```
+climate-bias-correction/
+│
+├── data/                          # Data directory (not included in repo)
+│   ├── sst/                       # Sea Surface Temperature data
+│   └── README.md                  # Instructions for obtaining data
+│
+├── src/                           # Source code
+│   ├── models/                    # Model implementations
+│   │   ├── __init__.py
+│   │   ├── unet.py                # UNet model architecture
+│   │   ├── bilstm.py              # BiLSTM model architecture
+│   │   └── convlstm.py            # ConvLSTM model architecture
+│   │
+│   ├── utils/                     # Utility functions
+│   │   ├── __init__.py
+│   │   ├── data_loader.py         # Data loading functions
+│   │   ├── preprocessing.py       # Data preprocessing functions
+│   │   └── metrics.py             # Evaluation metrics
+│   │
+│   ├── visualization/             # Visualization tools
+│   │   ├── __init__.py
+│   │   ├── plot_training.py       # Training history plotting
+│   │
+│   ├── sst_unet_reorganised.py    # UNet SST bias correction script
+│   ├── sst_bilstm.py              # BiLSTM SST bias correction script
+│   ├── sst_convlstm.py            # ConvLSTM SST bias correction script
+│   └── run_sst_correction.py      # Main execution script
+│
+├── output/                        # Output directory (created by scripts)
+│   ├── models/                    # Saved models
+│   ├── data/                      # Processed data
+│   └── figures/                   # Generated figures
+│
+├── docs/                          # Documentation
+│   └── model_overview.png
+│
+├── requirements.txt               # Project dependencies
+├── setup.py                       # Package setup script
+├── README.md                      # Project README
+└── .gitignore                     # Git ignore file
+```
+
+
 ### Output Structure
 
 Results are saved in the following structure:
