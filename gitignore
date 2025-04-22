@@ -1,0 +1,11 @@
+# Data directories
+
+/data/*
+
+# Output files and directories
+/output/
+/results/
+*.npy
+*.h5
+*.keras
+*.mat
