@@ -1,6 +1,6 @@
 # Global Climate Model Error Correction Toolkit
 
-This repository contains a set of deep learning models for global climate model error correction, with a focus on sea surface temperature (SST). The toolkit includes three different neural network architectures (UNet, BiLSTM, and ConvLSTM) that can be applied to correct systematic biases in CMIP6 CNRM-CM6 climate model outputs.
+This repository contains a deep learning model for global climate model error correction, with a focus on sea surface temperature (SST) and dynamic sea level (DSL). The toolkit implements a UNet architecture that can be applied to correct systematic biases in CMIP6 CNRM-CM6 climate model outputs.
 
 ## Overview
 
@@ -8,9 +8,9 @@ Climate models like those in CMIP6 have systematic biases when compared to reana
 
 ![Model Overview](./docs/model_overview.png)
 
-## Model Architectures
+## Model Architecture
 
-### 1. UNet 
+### UNet 
 
 The UNet model focuses on spatial patterns and relationships:
 
@@ -20,29 +20,6 @@ The UNet model focuses on spatial patterns and relationships:
   - Tanh activation functions for handling normalized ocean data
   - Dropout (0.2) between blocks to prevent overfitting
   - Custom MSE loss function with ocean mask to focus on relevant regions
-
-### 2. BiLSTM 
-
-The BiLSTM model captures temporal dependencies in climate data:
-
-- **Architecture**: Dual input bidirectional LSTM network
-- **Features**:
-  - Parallel BiLSTM layers (512 units) for original and transposed inputs
-  - Concatenation of bidirectional features to capture multi-directional patterns
-  - Dense output layer with ReLU activation
-  - MAE loss function for robust training
-
-### 3. ConvLSTM 
-
-The ConvLSTM model integrates both spatial and temporal patterns:
-
-- **Architecture**: Stacked ConvLSTM2D layers with encoder-decoder structure
-- **Features**:
-  - 8 ConvLSTM2D layers with varying filter counts (8→48→8)
-  - Batch normalization between layers
-  - Varied kernel sizes (7×7 → 3×3 → 7×7)
-  - Final Conv3D layer for spatiotemporal integration
-  - MSE loss function
 
 ## Installation
 
@@ -63,52 +40,39 @@ pip install -r requirements.txt
 
 ### Command Line Interface
 
-The toolkit provides a unified command-line interface for all models:
-
 ```bash
-# General usage
-python run_sst_correction.py --method [unet|bilstm|convlstm] [options]
+# Run with specific parameters
+python run_correction.py --variable sst --epochs 1000 --batch_size 64
 
-# Examples:
-# Run UNet with custom parameters
-python run_sst_correction.py --method unet --epochs 1000 --batch_size 64
+# Load an existing model
+python run_correction.py --variable dsl --load_model
 
-# Load a pre-trained BiLSTM model
-python run_sst_correction.py --method bilstm --load_model
-
-# Run ablation study with ConvLSTM
-python run_sst_correction.py --method convlstm --ablation --epochs 100
+# Run ablation study
+python run_correction.py --variable sst --ablation --epochs 100
 ```
 
 ### Interactive Mode
 
-For easier use, run the script without arguments for an interactive prompt:
+Simply run `python run_correction.py` and follow the prompts to:
+1. Choose a variable to correct (SST or DSL)
+2. Load an existing model or train a new one
+3. Set hyperparameters
+4. Run ablation studies
 
-```bash
-python run_sst_correction.py
-```
-
-This will guide you through:
-1. Choosing a correction method
-2. Loading existing models or training new ones
-3. Setting hyperparameters
-4. Running ablation studies
-
-# Project Structure
+## Project Structure
 
 ```
 climate-bias-correction/
 │
 ├── data/                          # Data directory (not included in repo)
 │   ├── sst/                       # Sea Surface Temperature data
+│   ├── zos/                       # Dynamic Sea Level data
 │   └── README.md                  # Instructions for obtaining data
 │
 ├── src/                           # Source code
 │   ├── models/                    # Model implementations
 │   │   ├── __init__.py
 │   │   ├── unet.py                # UNet model architecture
-│   │   ├── bilstm.py              # BiLSTM model architecture
-│   │   └── convlstm.py            # ConvLSTM model architecture
 │   │
 │   ├── utils/                     # Utility functions
 │   │   ├── __init__.py
@@ -121,9 +85,8 @@ climate-bias-correction/
 │   │   ├── plot_training.py       # Training history plotting
 │   │
 │   ├── sst_unet_reorganised.py    # UNet SST bias correction script
-│   ├── sst_bilstm.py              # BiLSTM SST bias correction script
-│   ├── sst_convlstm.py            # ConvLSTM SST bias correction script
-│   └── run_sst_correction.py      # Main execution script
+│   ├── dsl_unet_reorganised.py    # UNet DSL bias correction script
+│   └── run_correction.py          # Main execution script
 │
 ├── output/                        # Output directory (created by scripts)
 │   ├── models/                    # Saved models
@@ -139,8 +102,7 @@ climate-bias-correction/
 └── .gitignore                     # Git ignore file
 ```
 
-
-### Output Structure
+## Output Structure
 
 Results are saved in the following structure:
 
@@ -148,23 +110,21 @@ Results are saved in the following structure:
 output/
 ├── models/                       # Saved model files
 │   ├── unet_sst_model.h5
-│   ├── bilstm_model_best.h5
-│   └── convlstm_model.keras
+│   ├── unet_dsl_model.h5
 ├── data/                         # Processed input/output data
 │   ├── cmip6_train.npy
 │   └── ...
 ├── unet_sst_ssp126_2023_2100.npy # Bias-corrected predictions
-├── bilstm_thetao_ssp245_2023_2100.npy
-├── convlstm_thetao_ssp370_2023_2100.npy
+├── unet_dsl_ssp126_2023_2100.npy
 └── ...
 ```
 
 ## Model Training Process
 
-All models follow a similar training process:
+The model follows this training process:
 
 1. **Data Loading**: Historical (1958-2014) and near-future (2015-2020) data from CMIP6 and ORAS5
-2. **Preprocessing**: Normalization, mean removal, dimension adjustment, and sequence creation
+2. **Preprocessing**: Normalization, mean removal, dimension adjustment
 3. **Training**: Cross-validation with 80/20 split, Adam optimizer (lr=1e-4), and early stopping
 4. **Validation**: Performance evaluation on validation data using MAE/MSE metrics
 5. **Prediction**: Generation of bias-corrected projections for future scenarios (2023-2100)
@@ -175,23 +135,10 @@ Initial weights are sampled from the He normal distribution. The Adam optimizer,
 
 The architecture uses tanh activation functions in the convolutional layers to better handle the normalized ocean data values, which can include both positive and negative anomalies. Dropout layers (0.2) are incorporated between encoder and decoder blocks to prevent overfitting, especially important given the spatial and temporal correlations in climate data. For the UNet architecture, we implemented a symmetric design with five downsampling and upsampling operations, using filter sizes ranging from 32 to 1024 through the network depth. The model was trained for 1000 epochs with early stopping based on validation loss to prevent overfitting, and the best-performing model weights were saved for future prediction. A custom MSE loss function with an ocean mask was implemented to ensure the model only focuses on relevant ocean regions and ignores land areas in the calculation of errors.
 
-## Results Visualization
-
-The toolkit includes visualization tools for model evaluation:
-
-```python
-# Plot training history
-python plot_training_history.py --method unet
-``
-
-
-
-```
 ## Citation
 
-This manuscript for this work is under review in the IOP Science Machine Learning Earth journal.
+The manuscript for this work is under review in the Climate Dynamics journal.
 
-```
 ## Acknowledgements
 
 We acknowledge the World Climate Research Programme's Working Group on Coupled Modelling, which is responsible for CMIP, and we thank the climate modeling groups for producing and making available their model output. We also thank the EU Copernicus Marine Service for providing the ORAS5 observational dataset.
