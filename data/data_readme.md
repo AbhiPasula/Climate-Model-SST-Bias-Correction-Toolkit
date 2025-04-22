@@ -77,6 +77,11 @@ The raw data has been preprocessed to:
   - `oras5_mclim`: ORAS5 climatological monthly means (dimensions: 12 x lat x lon)
   - `mask1`: Ocean mask (1=ocean, 0=land)
 
+- `.npy` files: NumPy arrays:
+  - 2D files: Flattened spatial patterns (dimensions: time x spatial_points)
+  - Transposed files: Time-space transposed for bidirectional learning
+  - `datanomissing.npy`: Indices of valid ocean points
+
 
 ## Creating Your Own Dataset
 

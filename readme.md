@@ -137,7 +137,7 @@ The architecture uses tanh activation functions in the convolutional layers to b
 
 ## Citation
 
-The manuscript for this work is under review in the Climate Dynamics journal.
+The manuscript for this work is under review in the IOP Science Machine Learning Earth journal.
 
 ## Acknowledgements
 
