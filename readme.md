@@ -1,6 +1,6 @@
-# Global Climate Model Error Correction Toolkit
+# Global Climate Model Bias Correction Toolkit
 
-This repository contains a deep learning model for global climate model error correction, with a focus on sea surface temperature (SST) and dynamic sea level (DSL). The toolkit implements a UNet architecture that can be applied to correct systematic biases in CMIP6 CNRM-CM6 climate model outputs.
+This repository contains a deep learning model for global climate model bias correction, with a focus on sea surface temperature (SST) and dynamic sea level (DSL). The toolkit implements a UNet architecture that can be applied to correct systematic biases in CMIP6 CNRM-CM6 climate model outputs.
 
 ## Overview
 
